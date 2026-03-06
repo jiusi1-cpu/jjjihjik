@@ -6,6 +6,12 @@ import { getSupabaseEnv, hasSupabaseEnv } from "@/lib/supabase/shared";
 const PROTECTED_ROUTES = ["/files", "/profile"];
 const GUEST_ROUTES = ["/login", "/register"];
 
+type CookieToSet = {
+  name: string;
+  value: string;
+  options?: Record<string, unknown>;
+};
+
 function matchesRoute(pathname: string, routes: string[]) {
   return routes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 }
@@ -41,7 +47,7 @@ export async function updateSession(request: NextRequest) {
       getAll() {
         return request.cookies.getAll();
       },
-      setAll(cookiesToSet) {
+      setAll(cookiesToSet: CookieToSet[]) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
         response = NextResponse.next({
           request: {
