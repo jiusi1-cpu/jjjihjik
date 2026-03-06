@@ -9,3 +9,8 @@ pnpm-debug.log*
 
 .next-dev.log
 .next-dev.err.log
+
+android/local.properties
+android/.gradle
+android/captures
+

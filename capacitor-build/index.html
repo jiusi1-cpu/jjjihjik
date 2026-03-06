@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>个人文件中心</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #050816;
+        color: #e2e8f0;
+        font-family: Inter, system-ui, sans-serif;
+      }
+      .card {
+        max-width: 560px;
+        padding: 24px;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px;
+        background: rgba(255,255,255,0.04);
+        box-shadow: 0 16px 50px rgba(91, 140, 255, 0.18);
+      }
+      h1 { margin: 0 0 12px; font-size: 28px; }
+      p { margin: 0; line-height: 1.8; color: #94a3b8; }
+      code { color: #fff; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>个人文件中心</h1>
+      <p>
+        当前 APK 壳应用还没有配置线上地址。请在项目根目录的 <code>.env.local</code> 中添加
+        <code>CAPACITOR_SERVER_URL=https://你的公网域名</code>，然后执行 <code>npm run apk:prepare</code>。
+      </p>
+    </div>
+  </body>
+</html>
