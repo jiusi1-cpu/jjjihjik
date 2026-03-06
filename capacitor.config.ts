@@ -1,10 +1,44 @@
+﻿import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import type { CapacitorConfig } from "@capacitor/cli";
 
-const serverUrl = process.env.CAPACITOR_SERVER_URL;
+function readEnvFile(filePath: string) {
+  if (!existsSync(filePath)) {
+    return {} as Record<string, string>;
+  }
+
+  const content = readFileSync(filePath, "utf8");
+  const entries = content
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith("#"))
+    .map((line) => {
+      const index = line.indexOf("=");
+      if (index === -1) {
+        return null;
+      }
+
+      const key = line.slice(0, index).trim();
+      const value = line.slice(index + 1).trim();
+      return [key, value] as const;
+    })
+    .filter(Boolean) as Array<readonly [string, string]>;
+
+  return Object.fromEntries(entries);
+}
+
+const fileEnv = {
+  ...readEnvFile(resolve(process.cwd(), ".env")),
+  ...readEnvFile(resolve(process.cwd(), ".env.local"))
+};
+
+const serverUrl = process.env.CAPACITOR_SERVER_URL || fileEnv.CAPACITOR_SERVER_URL;
+const appId = process.env.CAPACITOR_APP_ID || fileEnv.CAPACITOR_APP_ID || "com.personalfilecenter.app";
+const appName = process.env.CAPACITOR_APP_NAME || fileEnv.CAPACITOR_APP_NAME || "个人文件中心";
 
 const config: CapacitorConfig = {
-  appId: process.env.CAPACITOR_APP_ID || "com.personalfilecenter.app",
-  appName: process.env.CAPACITOR_APP_NAME || "个人文件中心",
+  appId,
+  appName,
   webDir: "capacitor-build",
   ...(serverUrl
     ? {

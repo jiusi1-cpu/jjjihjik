@@ -13,4 +13,7 @@ pnpm-debug.log*
 android/local.properties
 android/.gradle
 android/captures
+android/.idea/
+
+*.apk
 
