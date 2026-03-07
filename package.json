@@ -10,7 +10,8 @@
     "cap:add:android": "npx cap add android",
     "cap:sync": "npx cap sync android",
     "cap:open:android": "npx cap open android",
-    "apk:prepare": "npx cap sync android"
+    "apk:prepare": "npm run mobile:build && npx cap sync android",
+    "mobile:build": "node scripts/build-mobile-standalone.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",

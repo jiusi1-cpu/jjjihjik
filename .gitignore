@@ -22,3 +22,6 @@ android/keystore.properties
 *.aab
 release-signing-backup.txt
 
+
+capacitor-build/
+releases/

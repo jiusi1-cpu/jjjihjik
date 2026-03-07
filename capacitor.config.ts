@@ -32,7 +32,8 @@ const fileEnv = {
   ...readEnvFile(resolve(process.cwd(), ".env.local"))
 };
 
-const serverUrl = process.env.CAPACITOR_SERVER_URL || fileEnv.CAPACITOR_SERVER_URL;
+const remoteMode = (process.env.CAPACITOR_REMOTE_MODE || fileEnv.CAPACITOR_REMOTE_MODE) === "true";
+const serverUrl = remoteMode ? process.env.CAPACITOR_SERVER_URL || fileEnv.CAPACITOR_SERVER_URL : undefined;
 const appId = process.env.CAPACITOR_APP_ID || fileEnv.CAPACITOR_APP_ID || "com.personalfilecenter.app";
 const appName = process.env.CAPACITOR_APP_NAME || fileEnv.CAPACITOR_APP_NAME || "个人文件中心";
 
